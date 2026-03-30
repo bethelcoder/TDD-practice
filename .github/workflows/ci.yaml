@@ -25,25 +25,20 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # 4. Run tests
-      - name: Run tests
-        run: npm test
+      # 4. Run tests WITH coverage (IMPORTANT)
+      - name: Run tests with coverage
+        run: npm test -- --coverage
 
-      # 5. Run coverage
-      - name: Run coverage
-        run: npm run test:coverage
-        
-      # 6. Generate Code coverage badges
+      # 5. Upload coverage to Codecov
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/lcov.info
+          fail_ci_if_error: true
 
-         # 7. Upload coverage report
+      # 6. Upload coverage report as artifact (optional but good for marking)
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: coverage/
-
-    
