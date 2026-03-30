@@ -32,8 +32,14 @@ jobs:
       # 5. Run coverage
       - name: Run coverage
         run: npm run test:coverage
+        
+      # 6. Generate Code coverage badges
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
-         # 6. Upload coverage report
+         # 7. Upload coverage report
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
         with:
